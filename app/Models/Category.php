@@ -12,7 +12,7 @@ class Category extends Model
 
     protected $fillable = [
         'name',
-        'icon'
+        'icon',
     ];
 
     public function products(): HasMany
