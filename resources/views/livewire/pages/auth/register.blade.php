@@ -47,7 +47,7 @@ $register = function () {
         <form wire:submit="register">
             <!-- Name -->
             <div class="mb-4">
-                <x-input-label for="name" :value="__('Name')" />
+                <x-input-label for="name" :value="__('Nombre')" />
                 <x-text-input wire:model="name" id="name" class="mt-1 block w-full" type="text" name="name"
                     required autofocus autocomplete="name" />
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
@@ -63,7 +63,7 @@ $register = function () {
 
             <!-- Password -->
             <div class="mt-4">
-                <x-input-label for="password" :value="__('Password')" />
+                <x-input-label for="password" :value="__('Contraseña')" />
 
                 <x-text-input wire:model="password" id="password" class="mt-1 block w-full" type="password"
                     name="password" required autocomplete="new-password" />
@@ -73,7 +73,7 @@ $register = function () {
 
             <!-- Confirm Password -->
             <div class="mt-4">
-                <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+                <x-input-label for="password_confirmation" :value="__('Confirmar Contraseña')" />
 
                 <x-text-input wire:model="password_confirmation" id="password_confirmation" class="mt-1 block w-full"
                     type="password" name="password_confirmation" required autocomplete="new-password" />
@@ -84,11 +84,11 @@ $register = function () {
             <div class="mt-4 flex items-center justify-end">
                 <a class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
                     href="{{ route('login') }}" wire:navigate>
-                    {{ __('Already registered?') }}
+                    {{ __('¿Ya estas registrado?') }}
                 </a>
 
                 <x-primary-button class="ms-4">
-                    {{ __('Register') }}
+                    {{ __('Registrate') }}
                 </x-primary-button>
             </div>
         </form>
