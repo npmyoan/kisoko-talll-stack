@@ -1,6 +1,7 @@
 <?php
 
 use function Livewire\Volt\{state};
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 state([
     'categories' => [
@@ -37,6 +38,11 @@ state([
     ],
 ]);
 
+$cancelOrder = function () {
+    Cart::destroy();
+    $this->dispatch('destroy_cart');
+};
+
 ?>
 
 <aside class="md:w-72">
@@ -50,7 +56,8 @@ state([
     </div>
 
     <div class="my-5 px-5">
-        <button type="button" class="w-full truncate bg-red-500 p-3 text-center font-bold text-white">
+        <button wire:click='cancelOrder' type="button"
+            class="w-full truncate bg-red-500 p-3 text-center font-bold text-white">
             Cancelar Orden
         </button>
     </div>

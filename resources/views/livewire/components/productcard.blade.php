@@ -1,9 +1,14 @@
 <?php
 
-use function Livewire\Volt\{state, computed};
+use function Livewire\Volt\{state, computed, on};
 use App\Constant;
-
+use Gloudemans\Shoppingcart\Facades\Cart;
 state(['product']);
+
+$addCart = function () {
+    Cart::add(['id' => $this->product['id'], 'name' => 'Product 1', 'qty' => 1, 'price' => 9.99, 'weight' => 550, 'options' => ['size' => 'large']]);
+    $this->dispatch('addCart');
+};
 
 $price = computed(function () {
     $fmt = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
@@ -23,7 +28,8 @@ $urlProduct = computed(function () {
             {{ $this->price }}
         </p>
 
-        <button type="button" class="mt-5 w-full bg-indigo-600 p-3 font-bold uppercase text-white hover:bg-indigo-800">
+        <button wire:click='addCart' type="button"
+            class="mt-5 w-full bg-indigo-600 p-3 font-bold uppercase text-white hover:bg-indigo-800">
             Agregar
         </button>
     </div>
