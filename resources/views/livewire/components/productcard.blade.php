@@ -6,7 +6,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 state(['product']);
 
 $addCart = function () {
-    Cart::add(['id' => $this->product['id'], 'name' => 'Product 1', 'qty' => 1, 'price' => 9.99, 'weight' => 550, 'options' => ['size' => 'large']]);
+    Cart::add(['id' => $this->product['id'], 'name' => $this->product['name'], 'qty' => 1, 'price' => $this->product['price'], 'weight' => 0]);
     $this->dispatch('addCart');
 };
 
