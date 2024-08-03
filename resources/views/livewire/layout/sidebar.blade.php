@@ -1,42 +1,16 @@
 <?php
 
-use function Livewire\Volt\{state};
+use function Livewire\Volt\{state, mount};
 use Gloudemans\Shoppingcart\Facades\Cart;
+use App\Business\ICategoryRepository;
 
 state([
-    'categories' => [
-        [
-            'icon' => 'cafe',
-            'name' => 'Café',
-            'id' => 1,
-        ],
-        [
-            'icon' => 'hamburguesa',
-            'name' => 'Hamburguesas',
-            'id' => 2,
-        ],
-        [
-            'icon' => 'pizza',
-            'name' => 'Pizzas',
-            'id' => 3,
-        ],
-        [
-            'icon' => 'dona',
-            'name' => 'Donas',
-            'id' => 4,
-        ],
-        [
-            'icon' => 'pastel',
-            'name' => 'Pasteles',
-            'id' => 5,
-        ],
-        [
-            'icon' => 'galletas',
-            'name' => 'Galletas',
-            'id' => 6,
-        ],
-    ],
+    'categories' => [],
 ]);
+
+mount(function (ICategoryRepository $category) {
+    $this->categories = $category->getAll();
+});
 
 $cancelOrder = function () {
     Cart::destroy();
@@ -51,7 +25,7 @@ $cancelOrder = function () {
     </div>
     <div class="mt-2">
         @foreach ($categories as $category)
-            <livewire:layout.sidebaritem :$category :key="$category['id']" />
+            <livewire:layout.sidebaritem :$category :key="$category->id" />
         @endforeach
     </div>
 
