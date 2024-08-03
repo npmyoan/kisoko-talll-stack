@@ -10,7 +10,7 @@ interface ICategoryRepository
 
     public function getById(int $id): object;
 
-    public function save(object $category): Collection;
+    public function save(object $category): object;
 
     public function destroyById(int $id): void;
 }

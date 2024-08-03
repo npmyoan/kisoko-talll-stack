@@ -18,7 +18,7 @@ class CategoryRepository implements ICategoryRepository
         return Category::find($id);
     }
 
-    public function save(object $category): Collection
+    public function save(object $category): object
     {
         return Category::updateOrCreate(['name' => $category->name], $category->toArray());
     }
