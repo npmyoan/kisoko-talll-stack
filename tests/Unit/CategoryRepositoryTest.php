@@ -8,19 +8,19 @@ beforeEach(function () {
     $this->categoryRepository = new CategoryRepository;
 });
 
-test('should get all categories', function () {
+it('should get all categories', function () {
     $this->seed(CategorySeeder::class);
     $categories = $this->categoryRepository->getAll();
-    expect($categories->count())->toBe(6);
+    expect($categories->count())->toBeInt()->toBe(6);
 });
 
-test('should get category by id', function () {
+it('should get category by id', function () {
     $this->seed(CategorySeeder::class);
     $category = $this->categoryRepository->getById(1);
     expect($category->name)->toContain('Café');
 });
 
-test('should delete category by id', function () {
+it('should delete category by id', function () {
     $this->seed(CategorySeeder::class);
     $categoriesStart = $this->categoryRepository->getAll();
     $this->categoryRepository->destroyById(1);
@@ -28,7 +28,7 @@ test('should delete category by id', function () {
     expect($categoriesEnd->count())->toBe($categoriesStart->count() - 1);
 });
 
-test('should create category', function () {
+it('should create category', function () {
     $categoryCreate = new Category;
     $categoryCreate->name = 'Hostia';
     $categoryCreate->icon = 'hostia';
@@ -37,7 +37,7 @@ test('should create category', function () {
     expect($categoryCreate->name)->toBe($categoryQuery->name);
 });
 
-test('should update category', function () {
+it('should update category', function () {
     $this->seed(CategorySeeder::class);
     $categoryCreate = new Category;
     $categoryCreate->name = 'Café';
