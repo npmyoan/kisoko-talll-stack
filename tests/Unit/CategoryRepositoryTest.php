@@ -10,8 +10,9 @@ beforeEach(function () {
 
 it('should get all categories', function () {
     $this->seed(CategorySeeder::class);
-    $categories = $this->categoryRepository->getAll();
-    expect($categories->count())->toBeInt()->toBe(6);
+    $categories = Category::all();
+    $categoriesRepository = $this->categoryRepository->getAll();
+    expect($categoriesRepository->count())->toBeInt()->toBe($categories->count());
 });
 
 it('should get category by id', function () {
