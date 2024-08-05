@@ -23,15 +23,30 @@ class EloquentProductRepository implements IProductRepository
     public function getById(int $id): object
     {
         return Product::find($id);
-
     }
 
-    public function save(object $product): object
+    public function create(object $product): object
     {
         $product->slug = Str::slug($product->name);
+        $category = Category::findOrFail($product->category_id);
 
-        return Product::updateOrCreate(['slug' => $product->slug], $product->toArray());
+        return $category->products()->create([
+            'name' => $product->name,
+            'price' => $product->price,
+            'slug' => $product->slug,
+            'image' => $product->image,
+        ]);
+    }
 
+    public function update(object $product): int
+    {
+        if (isset($product->name)) {
+            $product->slug = Str::slug($product->name);
+        }
+
+        $category = Category::findOrFail($product->category_id);
+
+        return $category->products()->where('id', $product->id)->update($product->toArray());
     }
 
     public function destroyById(int $id): void

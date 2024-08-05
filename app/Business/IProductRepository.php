@@ -12,7 +12,9 @@ interface IProductRepository
 
     public function getById(int $id): object;
 
-    public function save(object $product): object;
+    public function create(object $product): object;
+
+    public function update(object $product): int;
 
     public function destroyById(int $id): void;
 }
