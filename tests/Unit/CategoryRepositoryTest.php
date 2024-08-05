@@ -1,11 +1,11 @@
 <?php
 
 use App\Models\Category;
-use App\Repositories\CategoryRepository;
+use App\Repositories\EloquentCategoryRepository;
 use Database\Seeders\CategorySeeder;
 
 beforeEach(function () {
-    $this->categoryRepository = new CategoryRepository;
+    $this->categoryRepository = new EloquentCategoryRepository;
 });
 
 it('should get all categories', function () {
