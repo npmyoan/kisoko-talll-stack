@@ -1,6 +1,6 @@
 <?php
 
-use function Livewire\Volt\{state, mount, layout};
+use function Livewire\Volt\{state, mount, layout, on};
 
 use App\Business\IProductRepository;
 
@@ -11,6 +11,13 @@ state([
 mount(function (IProductRepository $product) {
     $this->products = $product->getAll();
 });
+
+on([
+    'filter-products' => function ($products) {
+        $this->products = $products;
+    },
+]);
+
 layout('layouts.default');
 
 ?>
