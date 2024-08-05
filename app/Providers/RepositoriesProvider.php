@@ -11,7 +11,8 @@ class RepositoriesProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(\App\Business\ICategoryRepository::class, \App\Repositories\CategoryRepository::class);
+        $this->app->bind(\App\Business\ICategoryRepository::class, \App\Repositories\EloquentCategoryRepository::class);
+        $this->app->bind(\App\Business\IProductRepository::class, \App\Repositories\EloquentProductRepository::class);
     }
 
     /**
