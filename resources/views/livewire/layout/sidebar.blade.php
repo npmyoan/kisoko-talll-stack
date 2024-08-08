@@ -31,7 +31,7 @@ $cancelOrder = function () {
 
     <div class="my-5 px-5">
         <button wire:click='cancelOrder' type="button"
-            class="w-full truncate bg-red-500 p-3 text-center font-bold text-white">
+            class="w-full truncate bg-red-base p-3 text-center font-bold text-rose-50">
             Cancelar Orden
         </button>
     </div>
