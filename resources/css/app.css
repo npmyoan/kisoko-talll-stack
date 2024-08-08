@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#main {
+    scrollbar-color: hsl(14, 65%, 9%) hsl(7, 20%, 60%);
+}
