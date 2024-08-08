@@ -20,17 +20,25 @@ $urlProduct = computed(function () {
 
 ?>
 
-<div class="border bg-white p-3 shadow">
-    <img src="{{ asset($this->urlProduct) }}" alt="{{ $product['name'] }}" class="w-full" />
+<div class="rounded-[2rem] border bg-white shadow">
+    <div class="flex flex-col items-center justify-center rounded-[2rem]">
+        <img src="{{ asset($this->urlProduct) }}" alt="{{ $product['name'] }}" class="w-full rounded-[2rem]" />
+        <button wire:click='addCart' type="button"
+            class="font-sm mt-[-18px] flex w-1/2 items-center justify-center gap-2 rounded-3xl border border-rose-900 bg-rose-50 px-4 py-2 text-center font-bold text-rose-900 hover:border-red-base hover:text-red-base">
+
+            <img src="{{ asset('/storage/icons/icon-add-to-cart.svg') }}" alt="agregar al carrito" class="h-5 w-5" />
+            Agregar
+
+        </button>
+    </div>
     <div class="p-5">
-        <h3 class="text-2xl font-bold"> {{ $product['name'] }}</h3>
-        <p class="mt-5 text-4xl font-black text-amber-500">
+        <p class="text-slate-400">{{ $product->category->name }}</p>
+        <h3 class="text-2xl"> {{ $product['name'] }}</h3>
+
+        <p class="mt-2 text-xl font-black text-red-base">
             {{ $this->price }}
         </p>
 
-        <button wire:click='addCart' type="button"
-            class="mt-5 w-full bg-indigo-600 p-3 font-bold uppercase text-white hover:bg-indigo-800">
-            Agregar
-        </button>
+
     </div>
 </div>
