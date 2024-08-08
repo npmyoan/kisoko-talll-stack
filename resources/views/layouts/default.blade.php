@@ -27,7 +27,7 @@
         <livewire:layout.sidebar />
 
         <!-- Page Content -->
-        <main class="h-screen flex-1 overflow-y-scroll bg-gray-100 p-3">
+        <main id="main" class="h-screen flex-1 overflow-y-scroll bg-rose-100 p-3">
             {{ $slot }}
         </main>
 
