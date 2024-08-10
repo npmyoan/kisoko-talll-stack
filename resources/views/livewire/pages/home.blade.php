@@ -27,7 +27,7 @@ layout('layouts.default');
     <p class="my-4 text-2xl">Elige y perzonaliza tu pedido a continuación</p>
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
         @forelse ($products as $product)
-            <livewire:components.productcard :$product :key="$product['id']" />
+            <livewire:components.productcard :$product :key="$product->id" />
         @empty
             No hay Productos
         @endforelse
