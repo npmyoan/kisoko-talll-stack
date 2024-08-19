@@ -48,7 +48,7 @@
     addEventListener("offline", (event) => {
         const Toast = Swal.mixin({
             toast: true,
-            position: 'top-end',
+            position: 'top',
             iconColor: 'white',
             customClass: {
                 popup: 'colored-toast',
@@ -60,14 +60,14 @@
 
         Toast.fire({
             icon: 'error',
-            title: 'La aplicación esta offline',
+            title: 'Actualmente estás offline',
         })
     });
 
     addEventListener("online", (event) => {
         const Toast = Swal.mixin({
             toast: true,
-            position: 'top-end',
+            position: 'top',
             iconColor: 'white',
             customClass: {
                 popup: 'colored-toast',
@@ -79,7 +79,7 @@
 
         Toast.fire({
             icon: 'info',
-            title: 'La aplicación esta offline',
+            title: 'Ahora tienes conexión',
         })
     });
 </script>
