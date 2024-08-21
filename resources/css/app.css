@@ -6,6 +6,10 @@
     scrollbar-color: hsl(14, 65%, 9%) hsl(7, 20%, 60%);
 }
 
+.scroll-bg {
+    scrollbar-color: hsl(14, 65%, 9%) hsl(7, 20%, 60%);
+}
+
 .colored-toast.swal2-icon-success {
     background-color: #a5dc86 !important;
 }

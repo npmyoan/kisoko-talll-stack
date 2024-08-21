@@ -7,7 +7,7 @@ state(['product'])->reactive();
 state(['qty' => 1]);
 
 $addCart = function () {
-    Cart::add(['id' => $this->product->id, 'name' => $this->product->name, 'qty' => $this->qty, 'price' => $this->product->price, 'weight' => 0]);
+    Cart::add(['id' => $this->product->id, 'name' => $this->product->name, 'qty' => $this->qty, 'price' => $this->product->price, 'weight' => 0, 'options' => ['image' => $this->product->image]]);
     $this->dispatch('addCart');
 };
 

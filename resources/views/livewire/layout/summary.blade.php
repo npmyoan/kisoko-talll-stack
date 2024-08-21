@@ -57,11 +57,7 @@ $removeProduct = fn($rowId) => Cart::remove($rowId);
                     <p>Total a Pagar: </p>
                     <p class="mt-2 text-xl font-black">${{ Cart::subtotal() }}</p>
                 </div>
-                <button
-                    class="w-full rounded-3xl bg-red-base px-2 py-3 text-white transition-colors hover:bg-red-700">Confirmar
-                    la
-                    orden</button>
-
+                <livewire:components.modals.modal-confirm-order />
             </div>
         @endif
 
