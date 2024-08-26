@@ -9,6 +9,11 @@ on(['destroy_cart']);
 $addQty = fn($rowId, $quantity) => Cart::update($rowId, $quantity + 1);
 $subtractQty = fn($rowId, $quantity) => Cart::update($rowId, $quantity - 1);
 $removeProduct = fn($rowId) => Cart::remove($rowId);
+
+$priceHumanization = function (float $price) {
+    $fmt = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
+    return $fmt->format($price);
+};
 ?>
 
 <div class="bg-rose-100 p-4 md:w-72">
@@ -27,8 +32,8 @@ $removeProduct = fn($rowId) => Cart::remove($rowId);
                             <p class="text-sm">{{ $product->name }}</p>
                             <div class="flex items-center justify-start gap-6">
                                 <p class="font-bold text-red-base">{{ $product->qty }}x</p>
-                                <p><span>@</span>{{ $product->price }}</p>
-                                <p><span>@</span>{{ $product->qty * $product->price }}</p>
+                                <p><span>@ </span>{{ $this->priceHumanization($product->price) }}</p>
+                                <p><span></span>{{ $this->priceHumanization($product->qty * $product->price) }}</p>
                             </div>
                         </div>
                         <div class="flex items-center justify-between px-4 py-2">

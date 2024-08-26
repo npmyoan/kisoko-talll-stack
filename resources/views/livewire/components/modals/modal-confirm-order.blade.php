@@ -2,13 +2,34 @@
 
 use function Livewire\Volt\{state, computed, on};
 use Gloudemans\Shoppingcart\Facades\Cart;
+use App\Models\Order;
+use App\Models\OrderProduct;
 
 on(['addCart']);
 on(['destroy_cart']);
 
 $confirmOrder = function () {
-    Cart::destroy();
-    $this->dispatch('destroy_cart');
+    $order = auth()
+        ->user()
+        ->orders()
+        ->create([
+            'total' => Cart::subtotal(),
+        ]);
+
+    Cart::content()->each(function ($product) use ($order) {
+        OrderProduct::create([
+            'order_id' => $order->id,
+            'product_id' => $product->id,
+            'price' => $product->price,
+            'quantity' => $product->qty,
+        ]);
+    });
+    $this->dispatch('save_order');
+};
+
+$priceHumanization = function (float $price) {
+    $fmt = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
+    return $fmt->format($price);
 };
 ?>
 
@@ -21,29 +42,42 @@ $confirmOrder = function () {
         orden</button>
 
     @teleport('body')
-        <div class="fixed left-0 top-0 grid h-screen w-screen w-screen place-items-center bg-transparent" x-show="open">
-            <div class="scroll-bg h-screen w-4/12 overflow-y-scroll rounded-lg bg-white p-10">
+        <div class="fixed left-0 top-0 grid h-screen w-screen place-items-center bg-transparent" x-show="open">
+            <div class="scroll-bg h-screen w-5/12 overflow-y-scroll rounded-lg bg-white p-10">
                 <img src="{{ asset('storage/icons/icon-order-confirmed.svg') }}" alt="Confirmación del la orden">
                 <h3 class="mt-6 text-3xl font-black text-rose-900">Confirma la orden</h3>
                 <p class="text-rose-400">¡Esperamos que disfrutes tu comida!</p>
-                <section class="mt-4 bg-rose-100">
-                    @foreach (Cart::content() as $product)
-                        <article class="flex gap-3 p-4">
-                            <img class="h-20 w-20 rounded-lg"
-                                src="{{ asset('storage/products/' . $product->options->image . '.jpg') }}"
-                                alt="{{ $product->name }}">
-                            <h4 class="font-bold text-rose-900">{{ $product->name }}</h4>
-                        </article>
-                        <hr />
-                    @endforeach
-                    <article class="flex gap-3 p-4">
-                        <p class="text-rose-500">Total de la Orden</p>
-                        <p class="text-xl font-bold text-rose-900">{{ $product->price }}</p>
+                <section class="mt-4 rounded-md bg-rose-100">
+                    @if (Cart::count() > 0)
+                        @foreach (Cart::content() as $product)
+                            <article class="flex items-center justify-between gap-3 p-4">
+                                <div class="flex items-center gap-4">
+                                    <img class="h-20 w-20 rounded-lg"
+                                        src="{{ asset('storage/products/' . $product->options->image . '.jpg') }}"
+                                        alt="{{ $product->name }}">
+                                    <div class="flex flex-col gap-4">
+                                        <h4 class="font-bold text-rose-900">{{ $product->name }}</h4>
+                                        <div class="flex items-center justify-start gap-6">
+                                            <p class="font-bold text-red-base">{{ $product->qty }}x</p>
+                                            <p><span>@ </span>{{ $this->priceHumanization($product->price) }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="font-bold text-rose-900">
+                                    <span></span>{{ $this->priceHumanization($product->qty * $product->price) }}
+                                </p>
+                            </article>
+                            <hr />
+                        @endforeach
+                    @endif
+                    <article class="flex justify-between gap-3 p-4">
+                        <p class="font-bold text-rose-500">Total de la Orden</p>
+                        <p class="text-xl font-black text-rose-900">{{ $this->priceHumanization($product->price) }}</p>
                     </article>
                 </section>
                 <button type="button"
                     class="mt-5 w-full rounded-3xl bg-red-base px-5 py-2 font-bold uppercase text-white hover:bg-red-700"
-                    wire:click='confirmOrder' @click="open = false">
+                    @click="open = false" wire:click='confirmOrder'>
                     Iniciar nuevo pedido
                 </button>
 
@@ -54,26 +88,24 @@ $confirmOrder = function () {
 </div>
 
 @script
-    //
     <script>
-        //     $wire.on('addCart', () => {
-        //         const Toast = Swal.mixin({
-        //             toast: true,
-        //             position: 'top-end',
-        //             iconColor: 'white',
-        //             customClass: {
-        //                 popup: 'colored-toast',
-        //             },
-        //             showConfirmButton: false,
-        //             timer: 1500,
-        //             timerProgressBar: true,
-        //         })
+        $wire.on('save_order', () => {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                iconColor: 'white',
+                customClass: {
+                    popup: 'colored-toast',
+                },
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: true,
+            })
 
-        //         Toast.fire({
-        //             icon: 'success',
-        //             title: 'Se agregó el producto al carrito',
-        //         })
-        //     });
-        //
+            Toast.fire({
+                icon: 'success',
+                title: 'Se envió la orden',
+            })
+        });
     </script>
 @endscript

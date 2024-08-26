@@ -1,6 +1,6 @@
 <?php
 
-use function Livewire\Volt\{state, mount};
+use function Livewire\Volt\{state, mount, on};
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Business\ICategoryRepository;
 
