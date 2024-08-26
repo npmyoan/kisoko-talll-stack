@@ -5,6 +5,11 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 
 on(['addCart']);
 on(['destroy_cart']);
+on([
+    'save_order' => function () {
+        Cart::destroy();
+    },
+]);
 
 $addQty = fn($rowId, $quantity) => Cart::update($rowId, $quantity + 1);
 $subtractQty = fn($rowId, $quantity) => Cart::update($rowId, $quantity - 1);

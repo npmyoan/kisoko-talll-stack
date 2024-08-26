@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
-Route::view('/', 'welcome');
+Route::redirect('/', 'home', 301);
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -13,7 +13,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Volt::route('home', 'pages.home')
         ->name('default');
 })
-    ->name('dashboard');
+    ->name('home');
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
