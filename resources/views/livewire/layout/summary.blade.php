@@ -19,6 +19,7 @@ $priceHumanization = function (float $price) {
     $fmt = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
     return $fmt->format($price);
 };
+
 ?>
 
 <div class="bg-rose-100 p-4 md:w-72">

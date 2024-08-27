@@ -72,7 +72,7 @@ $priceHumanization = function (float $price) {
                     @endif
                     <article class="flex justify-between gap-3 p-4">
                         <p class="font-bold text-rose-500">Total de la Orden</p>
-                        <p class="text-xl font-black text-rose-900">{{ $this->priceHumanization($product->price) }}</p>
+                        <p class="text-xl font-black text-rose-900">{{ $this->priceHumanization(Cart::subtotal()) }}</p>
                     </article>
                 </section>
                 <button type="button"
