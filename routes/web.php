@@ -1,19 +1,17 @@
 <?php
 
+use App\Http\Middleware\RoleVerified;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
 Route::redirect('/', 'home', 301);
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
-
 Route::middleware(['auth', 'verified'])->group(function () {
     Volt::route('home', 'pages.home')
         ->name('default');
-})
-    ->name('home');
+    Volt::route('admin', 'pages.admin.orders')
+        ->name('admin')->middleware(RoleVerified::class);
+});
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])

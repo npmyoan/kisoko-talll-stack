@@ -27,8 +27,8 @@
     <link rel="stylesheet" type="text/css" href="bower_components/sweetalert2/dist/sweetalert2.min.css">
 </head>
 
-<body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+<body class="font-nunito_sans antialiased">
+    <div class="min-h-screen bg-gray-100">
         <livewire:layout.navigation />
 
         <!-- Page Heading -->
@@ -42,10 +42,13 @@
 
 
         <!-- Page Content -->
-        <main class="h-screen flex-1 overflow-y-scroll bg-rose-100">
+        <div class="flex">
             <livewire:layout.admin-sidebar />
-            {{ $slot }}
-        </main>
+            <main class="h-screen flex-1 overflow-y-scroll bg-rose-100 p-3">
+                {{ $slot }}
+            </main>
+        </div>
+
     </div>
 </body>
 
