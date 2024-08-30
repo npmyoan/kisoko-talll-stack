@@ -15,7 +15,7 @@ class Order extends Model
 
     public function products(): HasMany
     {
-        return $this->hasMany(OrderProduct::class);
+        return $this->hasMany(OrderProduct::class)->with('product');
     }
 
     public function user(): BelongsTo
