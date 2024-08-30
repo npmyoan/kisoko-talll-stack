@@ -19,8 +19,15 @@ mount(function () {
     </x-slot:header>
     <div>
         <h2 class="my-10 text-2xl"></h2>
-        <pre>
-            {{ $orders }}
-        </pre>
+
+        @forelse ($orders as $order)
+            @forelse ($order->products as $product)
+                {{ formatCurrency($product->price) }}
+            @empty
+                No hay productos
+            @endforelse
+        @empty
+            No hay Ordenes para completar
+        @endforelse
     </div>
 </div>
