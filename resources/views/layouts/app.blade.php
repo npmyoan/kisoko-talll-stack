@@ -44,7 +44,7 @@
         <!-- Page Content -->
         <div class="flex">
             <livewire:layout.admin-sidebar />
-            <main class="h-screen flex-1 overflow-y-scroll bg-rose-100 p-3">
+            <main class="h-screen flex-1 overflow-y-scroll p-3">
                 {{ $slot }}
             </main>
         </div>

@@ -10,7 +10,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Volt::route('home', 'pages.home')
         ->name('default');
     Volt::route('admin', 'pages.admin.orders')
-        ->name('admin')->middleware(RoleVerified::class);
+        ->name('admin')->middleware(['isAdmin']);
 });
 
 Route::view('profile', 'profile')

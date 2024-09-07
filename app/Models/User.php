@@ -29,15 +29,10 @@ class User extends Authenticatable
         'password',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
 
     /**
      * Get the attributes that should be cast.
@@ -52,8 +47,5 @@ class User extends Authenticatable
         ];
     }
 
-    public function orders(): HasMany
-    {
-        return $this->hasMany(Order::class);
-    }
+
 }
