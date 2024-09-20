@@ -43,7 +43,7 @@ $completeOrder = function (int $orderId) {
                                     </div>
                                 </div>
                                 <p class="font-bold text-rose-900">
-                                    <span></span>{{ formatCurrency($product->qty * $product->price) }}
+                                    {{ formatCurrency($product->quantity * $product->price) }}
                                 </p>
 
                             </article>

@@ -12,7 +12,7 @@ $price = computed(function () {
     return $fmt->format($this->product->price);
 });
 $urlProduct = computed(function () {
-    return Constant::URL_STORAGE_PRODUCT.$this->product->image.'.jpg';
+    return Constant::URL_STORAGE_PRODUCT . $this->product->image . '.jpg';
 });
 
 $updateIsAvailable = function (IProductRepository $products) {
@@ -26,7 +26,7 @@ $updateIsAvailable = function (IProductRepository $products) {
 <div class="rounded-[2rem] border shadow">
 
     <div class="flex flex-col items-center justify-center rounded-[2rem]">
-        <img src="{{ asset($this->urlProduct) }}" alt="{{ $product->name }}" class="w-full rounded-[2rem]"/>
+        <img src="{{ asset($this->urlProduct) }}" alt="{{ $product->name }}" class="w-full rounded-[2rem]" />
     </div>
     <div class="p-5">
         <p class="text-slate-400">{{ $product->category->name }}</p>
@@ -37,7 +37,7 @@ $updateIsAvailable = function (IProductRepository $products) {
         </p>
 
         <button class="mt-3 w-full rounded bg-red-base py-2 font-bold uppercase text-white hover:bg-rose-800"
-                wire:click='updateIsAvailable'>
+            wire:click='updateIsAvailable'>
             @if ($product->available)
                 product agotado
             @else
@@ -50,35 +50,35 @@ $updateIsAvailable = function (IProductRepository $products) {
 
 
 @script
-<script>
-    $wire.on('is-stock', ($product) => {
+    <script>
+        $wire.on('is-stock', ($product) => {
 
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            iconColor: 'white',
-            customClass: {
-                popup: 'colored-toast',
-            },
-            showConfirmButton: false,
-            timer: 1500,
-            timerProgressBar: true,
-        })
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                iconColor: 'white',
+                customClass: {
+                    popup: 'colored-toast',
+                },
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: true,
+            })
 
 
-        if (!$product.product.available) {
+            if (!$product.product.available) {
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Producto agotado',
+                })
+                return
+            }
+
             Toast.fire({
                 icon: 'success',
-                title: 'Producto agotado',
+                title: 'Producto disponible',
             })
-            return
-        }
 
-        Toast.fire({
-            icon: 'success',
-            title: 'Producto disponible',
-        })
-
-    });
-</script>
+        });
+    </script>
 @endscript
