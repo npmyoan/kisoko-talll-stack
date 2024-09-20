@@ -53,4 +53,14 @@ class EloquentProductRepository implements IProductRepository
     {
         Product::destroy($id);
     }
+
+    public function available(int $id): Product
+    {
+        $product = Product::findOrFail($id);
+
+        $product->available = $product->available ? 0 : 1;
+        $product->save();
+
+        return $product;
+    }
 }
