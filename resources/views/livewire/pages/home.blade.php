@@ -5,6 +5,7 @@ use App\Livewire\Actions\Logout;
 
 use App\Business\IProductRepository;
 use App\Business\ICategoryRepository;
+use App\Models\Product;
 
 layout('layouts.default');
 

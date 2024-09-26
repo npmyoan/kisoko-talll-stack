@@ -5,6 +5,7 @@ use App\Livewire\Actions\Logout;
 
 use App\Business\IProductRepository;
 use App\Business\ICategoryRepository;
+use App\Models\Product;
 
 layout('layouts.app');
 
@@ -30,6 +31,13 @@ on([
     },
 ]);
 
+on([
+    'search-products' => function (string $search) {
+        $products = Product::where('name', 'like', '%' . $search . '%')->get();
+        $this->products = $products;
+    },
+]);
+
 $logout = function (Logout $logout) {
     $logout();
     $this->redirect('/', navigate: true);
@@ -39,18 +47,15 @@ $logout = function (Logout $logout) {
 
 <div class="relative">
     <div class="flex justify-end">
-        <a
-            class="px-4 mb-4  py-2 bg-emerald-500 text-slate-200 flex gap-3 items-center rounded-md hover:bg-emerald-800 transition-colors"
-            href="{{route('admin.products.create')}}"
-            wire:navigate
-        >
-            <img src="{{asset('storage/icons/plus.svg')}}" class="text-white">
+        <a class="mb-4 flex items-center gap-3 rounded-md bg-emerald-500 px-4 py-2 text-slate-200 transition-colors hover:bg-emerald-800"
+            href="{{ route('admin.products.create') }}" wire:navigate>
+            <img src="{{ asset('storage/icons/plus.svg') }}" class="text-white">
             Nuevo producto
         </a>
     </div>
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
         @forelse ($products as $product)
-            <livewire:components.productcardadmin :$product :key="$product->id"/>
+            <livewire:components.productcardadmin :$product :key="$product->id" />
         @empty
             No hay Productos
         @endforelse

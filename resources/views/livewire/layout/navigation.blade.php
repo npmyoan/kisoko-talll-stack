@@ -30,6 +30,8 @@ $logout = function (Logout $logout) {
                 </div>
             </div>
 
+            <livewire:components.searchproduct />
+
             <!-- Settings Dropdown -->
             <div class="hidden sm:ms-6 sm:flex sm:items-center">
                 <x-dropdown align="right" width="48">
