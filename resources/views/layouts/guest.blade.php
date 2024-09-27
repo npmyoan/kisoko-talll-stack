@@ -19,7 +19,8 @@
 <body class="font-sans text-gray-900 antialiased">
     <main class="m-auto mt-10 flex max-w-4xl flex-col items-center md:mt-28 md:flex-row">
         <div>
-            <img src="{{ asset('storage/img/logo.jpg') }}" alt="Pizakoz" class="max-w-xs" />
+            <img class="block h-80 w-96 fill-current text-gray-800 dark:text-gray-200"
+                src="{{ asset('/img/logo.png') }}" alt="logo" />
         </div>
 
         <div class="w-full p-10">
