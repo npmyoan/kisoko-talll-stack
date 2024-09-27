@@ -8,7 +8,7 @@ interface IProductRepository
 {
     public function getAll(): Collection;
 
-    public function getByCategory(int $id): Collection;
+    public function getByCategory(string $category): Collection;
 
     public function getById(int $id): object;
 

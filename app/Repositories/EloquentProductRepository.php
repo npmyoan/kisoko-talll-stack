@@ -15,9 +15,9 @@ class EloquentProductRepository implements IProductRepository
         return Product::all();
     }
 
-    public function getByCategory(int $id): Collection
+    public function getByCategory(string $category): Collection
     {
-        return Category::findOrFail($id)->products;
+        return Category::where('slug', $category)->first()->products;
     }
 
     public function getById(int $id): object

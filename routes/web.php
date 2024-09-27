@@ -10,6 +10,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Volt::route('home', 'pages.home')
         ->name('default');
 
+    Volt::route('home/{category}', 'pages.home')
+        ->name('home.category');
+
     Volt::route('admin', 'pages.admin.orders')
         ->name('admin')->middleware(['isAdmin']);
 

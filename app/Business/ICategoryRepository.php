@@ -8,7 +8,7 @@ interface ICategoryRepository
 {
     public function getAll(): Collection;
 
-    public function getById(int $id): object;
+    public function getBySlug(string $slug): object;
 
     public function save(object $category): object;
 

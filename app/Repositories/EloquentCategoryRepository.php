@@ -13,9 +13,9 @@ class EloquentCategoryRepository implements ICategoryRepository
         return Category::all();
     }
 
-    public function getById(int $id): object
+    public function getBySlug(string $slug): object
     {
-        return Category::find($id);
+        return Category::where('slug', operator: $slug)->first();
     }
 
     public function save(object $category): object

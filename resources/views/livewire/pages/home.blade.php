@@ -14,16 +14,17 @@ state([
     'categoryName' => 'Todos los productos',
 ]);
 
-mount(function (IProductRepository $product) {
-    $this->products = $product->getAll();
-});
+state(['category'])->url();
 
-on([
-    'filter-products' => function ($categoryId, IProductRepository $product, ICategoryRepository $categoryS) {
-        $this->categoryName = $categoryS->getById($categoryId)->name;
-        $this->products = $product->getByCategory($categoryId);
-    },
-]);
+mount(function (IProductRepository $product, ICategoryRepository $categoryRepository) {
+    if (!$this->category) {
+        $this->products = $product->getAll();
+        $this->categoryName = 'Todos los productos';
+    } else {
+        $this->categoryName = $categoryRepository->getBySlug($this->category)->name;
+        $this->products = $product->getByCategory($this->category);
+    }
+});
 
 $logout = function (Logout $logout) {
     $logout();
