@@ -5,12 +5,18 @@ namespace App\Repositories;
 use App\Business\ICategoryRepository;
 use App\Models\Category;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 
 class EloquentCategoryRepository implements ICategoryRepository
 {
     public function getAll(): Collection
     {
-        return Category::all();
+        if (Cache::has('categories')) {
+            return Cache::get('categories');
+        }
+        $categories = Category::all();
+        Cache::put('categories', $categories, now()->addHours(2));
+        return $categories;
     }
 
     public function getBySlug(string $slug): object

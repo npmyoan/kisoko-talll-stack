@@ -14,8 +14,8 @@ state([
     'categoryName' => 'Todos los productos',
 ]);
 
-mount(function (IProductRepository $product) {
-    $this->products = $product->getAll();
+mount(function () {
+    $this->products = Product::all();
 });
 
 on([

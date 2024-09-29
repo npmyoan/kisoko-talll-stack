@@ -6,13 +6,18 @@ use App\Business\IProductRepository;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class EloquentProductRepository implements IProductRepository
 {
     public function getAll(): Collection
     {
-        return Product::where('available', 1)->get();
+        if (Cache::has('products')) {
+            return Cache::get('products');
+        }
+        $products =  Product::where('available', 1)->get();
+        Cache::put('products', $products, now()->addHours(2));
     }
 
     public function getByCategory(string $category): Collection
@@ -60,6 +65,7 @@ class EloquentProductRepository implements IProductRepository
 
         $product->available = $product->available ? 0 : 1;
         $product->save();
+        Cache::forget('products');
 
         return $product;
     }
