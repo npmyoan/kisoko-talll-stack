@@ -17,7 +17,7 @@ $urlProduct = computed(function () {
 
 $updateIsAvailable = function (IProductRepository $products) {
     $product = $products->available($this->product->id);
-    $this->dispatch('is-stock', product: $product);
+    $this->redirectRoute('admin.products', navigate:true);
 };
 
 ?>

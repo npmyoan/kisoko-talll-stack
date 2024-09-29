@@ -1,7 +1,7 @@
 <?php
 
-use function Livewire\Volt\{state, layout, mount};
 use App\Models\Order;
+use function Livewire\Volt\{state, layout, mount};
 
 layout('layouts.app');
 state(['orders' => Order::where('status', 0)->with('user')->with('products')->get()]);
