@@ -12,7 +12,7 @@ class EloquentProductRepository implements IProductRepository
 {
     public function getAll(): Collection
     {
-        return Product::all();
+        return Product::where('available', 1)->get();
     }
 
     public function getByCategory(string $category): Collection
