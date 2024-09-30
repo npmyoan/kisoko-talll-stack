@@ -59,8 +59,6 @@ $login = function (IProductRepository $product) {
 
 <div class="flex h-full w-full items-center justify-center">
     <div class="min-w-96 rounded-md bg-white p-10 shadow">
-
-
         <form wire:submit="login">
 
             <div>
