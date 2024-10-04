@@ -3,6 +3,7 @@
 use App\Models\Order;
 use App\Mail\OrderShipped;
 use Illuminate\Support\Facades\Mail;
+use App\Notifications\OrderSended;
 use function Livewire\Volt\{state, layout, mount};
 
 layout('layouts.app');
@@ -10,9 +11,9 @@ state(['orders' => Order::where('status', 0)->with('user')->with('products')->ge
 
 $completeOrder = function (int $orderId) {
     $order = Order::where('id', $orderId)->first();
-    #$order->update(['status' => 1]);
-    $this->orders = Order::where('status', 0)->with('user')->with('products')->get();
-    Mail::to($order->user->email)->send(new OrderShipped($order));
+    // $order->update(['status' => 1]);
+    $order->user->notify(new OrderSended($order));
+    // Mail::to($order->user->email)->send(new OrderShipped($order));
     $this->dispatch('completed-order');
 };
 ?>

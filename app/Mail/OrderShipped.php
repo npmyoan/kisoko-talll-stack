@@ -41,6 +41,7 @@ class OrderShipped extends Mailable
     {
         return new Content(
             view: 'mail.orderShipped',
+            with: ['order' => $this->order, 'products' => $this->order->products],
         );
     }
 
