@@ -16,6 +16,7 @@ class EloquentCategoryRepository implements ICategoryRepository
         }
         $categories = Category::all();
         Cache::put('categories', $categories, now()->addHours(2));
+
         return $categories;
     }
 
@@ -31,6 +32,6 @@ class EloquentCategoryRepository implements ICategoryRepository
 
     public function destroyById(int $id): void
     {
-        Category::find($id)->delete();
+        Category::destroy($id);
     }
 }

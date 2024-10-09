@@ -16,8 +16,11 @@ class EloquentProductRepository implements IProductRepository
         if (Cache::has('products')) {
             return Cache::get('products');
         }
-        $products =  Product::where('available', 1)->get();
+        $products = Product::where('available', 1)->get();
+
         Cache::put('products', $products, now()->addHours(2));
+
+        return $products;
     }
 
     public function getByCategory(string $category): Collection

@@ -27,7 +27,7 @@ it('should get product by category id', function () {
     $this->seed(ProductSeeder::class);
     $category = Category::first();
     $products = $category->products;
-    $productsRepository = $this->productRepository->getByCategory($category->id);
+    $productsRepository = $this->productRepository->getByCategory($category->slug);
 
     expect($productsRepository->count())->toEqual($products->count());
 });
