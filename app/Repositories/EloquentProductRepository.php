@@ -48,13 +48,13 @@ class EloquentProductRepository implements IProductRepository
 
     public function update(object $product): int
     {
+
         if (isset($product->name)) {
             $product->slug = Str::slug($product->name);
         }
 
-        $category = Category::findOrFail($product->category_id);
+        return Product::where('id', $product->id)->update($product->toArray());
 
-        return $category->products()->where('id', $product->id)->update($product->toArray());
     }
 
     public function destroyById(int $id): void

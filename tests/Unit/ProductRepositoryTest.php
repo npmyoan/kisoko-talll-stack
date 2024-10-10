@@ -55,16 +55,16 @@ it('should create product', function () {
     expect($productsRepository->slug)->toBe($product->slug);
 });
 
-// it('should update product', function () {
-//     $this->seed(CategorySeeder::class);
-//     $product = Product::factory()->create();
+it('should update product', function () {
+    $this->seed(CategorySeeder::class);
+    $product = Product::factory()->create();
 
-//     $product->name = 'Pastel1 arroz1';
-//     $product->price = 60;
-//     $product->image = 'Pastel2';
-//     $product->category_id = 2;
+    $product->name = 'Pastel1 arroz1';
+    $product->price = 60;
+    $product->image = 'Pastel2';
+    $product->category_id = 2;
 
-//     $productsRepository = $this->productRepository->update($product);
-
-//     expect($productsRepository)->toBeInt()->toBe(1);
-// });
+    $this->productRepository->update($product);
+    $productExpect = Product::find($product->id)->first();
+    expect($productExpect->name)->toBe($product->name);
+});
