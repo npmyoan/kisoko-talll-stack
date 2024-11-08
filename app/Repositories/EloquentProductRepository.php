@@ -13,14 +13,7 @@ class EloquentProductRepository implements IProductRepository
 {
     public function getAll(): Collection
     {
-        if (Cache::has('products')) {
-            return Cache::get('products');
-        }
-        $products = Product::where('available', 1)->get();
-
-        Cache::put('products', $products, now()->addHours(2));
-
-        return $products;
+        return Cache::remember('products', now()->addHours(2), fn () => Product::where('available', 1)->get());
     }
 
     public function getByCategory(string $category): Collection
@@ -66,8 +59,7 @@ class EloquentProductRepository implements IProductRepository
     {
         $product = Product::findOrFail($id);
 
-        $product->available = $product->available ? 0 : 1;
-        $product->save();
+        $product->update(['available' => $product->available ? 0 : 1]);
         Cache::forget('products');
 
         return $product;

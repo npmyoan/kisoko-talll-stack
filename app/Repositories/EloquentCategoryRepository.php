@@ -11,13 +11,9 @@ class EloquentCategoryRepository implements ICategoryRepository
 {
     public function getAll(): Collection
     {
-        if (Cache::has('categories')) {
-            return Cache::get('categories');
-        }
-        $categories = Category::all();
-        Cache::put('categories', $categories, now()->addHours(2));
 
-        return $categories;
+        return Cache::remember('categories', now()->addHours(2), fn () => Category::all());
+
     }
 
     public function getBySlug(string $slug): object

@@ -47,5 +47,13 @@ class User extends Authenticatable
         ];
     }
 
+    public function isAdmin(): bool
+    {
+        return $this->role === self::ADMIN;
+    }
 
+    public function isClient(): bool
+    {
+        return $this->role === self::CLIENT;
+    }
 }
